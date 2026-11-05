@@ -141,4 +141,4 @@ Every page carries the data-quality summary and the source and TMS 29 footnotes.
 
 ## Follow-up project
 
-The same data model and rules were later extended into **BIST Finansal Analiz**, a financial-statement analysis app for any non-financial BIST company (separate repository, link to be added).
+The same data model and rules were later extended into **BIST Finansal Analiz**, a financial-statement analysis app for any non-financial BIST company (separate repository: [bist-finansal-analiz](https://github.com/emre-cakir0/bist-finansal-analiz)).
