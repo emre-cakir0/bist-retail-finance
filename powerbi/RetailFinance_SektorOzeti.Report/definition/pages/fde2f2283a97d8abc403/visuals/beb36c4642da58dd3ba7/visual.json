@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "beb36c4642da58dd3ba7",
+  "position": {
+    "x": 926.66666666666674,
+    "y": 211.66666666666669,
+    "z": 16000,
+    "height": 184.16666666666669,
+    "width": 343.33333333333337,
+    "tabOrder": 9000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Öne Çıkanlar · 2025/12",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "11pt",
+                      "color": "#b3b3b3"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "BİM ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "8.5pt",
+                      "color": "#5b9bff"
+                    }
+                  },
+                  {
+                    "value": "en ince brüt marjla (%19,3) en yüksek ROE'yi (%11,2) üretiyor; getiri varlık devrinden (2,13x) geliyor.",
+                    "textStyle": {
+                      "fontSize": "8.5pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Migros ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "8.5pt",
+                      "color": "#ffa94d"
+                    }
+                  },
+                  {
+                    "value": "en yüksek FAVÖK marjını (%6,6) en düşük kaldıraçla (0,14x) taşıyor.",
+                    "textStyle": {
+                      "fontSize": "8.5pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": ""
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "CarrefourSA ",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "8.5pt",
+                      "color": "#c49bff"
+                    }
+                  },
+                  {
+                    "value": "net borç/FAVÖK 5,46x ve negatif özkaynakla sektörün en zayıf bilançosu.",
+                    "textStyle": {
+                      "fontSize": "8.5pt",
+                      "color": "#ffffff"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

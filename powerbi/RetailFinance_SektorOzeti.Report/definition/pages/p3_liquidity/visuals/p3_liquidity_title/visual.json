@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p3_liquidity_title",
+  "position": {
+    "x": 196,
+    "y": 4,
+    "z": 13000,
+    "height": 60,
+    "width": 520,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Likidite ve Borçluluk",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "16pt",
+                      "color": "#EDF2FC"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Dönem sonu bakiyeler · FAVÖK yıllıklandırılmış · boş oranlar bilerek boş",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#A3B2D1"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

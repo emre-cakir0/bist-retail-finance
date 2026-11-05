@@ -1,0 +1,126 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 900.1644942446336,
+            "y": 182.90755051408291
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "bc5fd3a4-1474-5f04-9e24-ca611b380222",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 95.355830427697811,
+            "y": -9.68519226927458
+          },
+          "nodeIndex": "dim_company",
+          "nodeLineageTag": "1e89b553-2260-58ef-8a10-40b322984059",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 381.60366316299144,
+            "y": -37.00924482659309
+          },
+          "nodeIndex": "dim_date",
+          "nodeLineageTag": "1a692293-dae1-5130-ae3b-b2d1215b061b",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1184.1644942446337,
+            "y": 208.90755051408291
+          },
+          "nodeIndex": "dq_results",
+          "nodeLineageTag": "438801ce-594c-5721-bdb6-9639d24e21db",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 659.56371802420529,
+            "y": 312.59889324388087
+          },
+          "nodeIndex": "fact_growth",
+          "nodeLineageTag": "8475c23e-5229-5973-acff-eb875df0a388",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 666.1644942446336,
+            "y": -50
+          },
+          "nodeIndex": "fact_quarterly",
+          "nodeLineageTag": "0dc6bf05-1e12-585b-a508-4824e9c2e370",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 315.81510102816594
+          },
+          "nodeIndex": "fact_ratios",
+          "nodeLineageTag": "d5d82bbd-5e7b-58fd-a804-cc843b4eb504",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1468.1644942446337,
+            "y": 196.90755051408291
+          },
+          "nodeIndex": "known_issues",
+          "nodeLineageTag": "a2b50af7-edfb-55e7-99bb-b311dcf1ed9e",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "Tüm tablolar",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "Tüm tablolar",
+  "defaultDiagram": "Tüm tablolar"
+}

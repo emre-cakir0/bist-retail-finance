@@ -1,0 +1,48 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p2_company_title",
+  "position": {
+    "x": 196,
+    "y": 4,
+    "z": 19000,
+    "height": 60,
+    "width": 520,
+    "tabOrder": 4000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Şirket Detayı",
+                    "textStyle": {
+                      "fontWeight": "bold",
+                      "fontSize": "16pt",
+                      "color": "#edf2fc"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Yıl sonu trendleri 2019–2025 · kartlar geçen yılın aynı dönemiyle karşılaştırılır",
+                    "textStyle": {
+                      "fontSize": "9pt",
+                      "color": "#a3b2d1"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,60 @@
+table known_issues
+	lineageTag: a2b50af7-edfb-55e7-99bb-b311dcf1ed9e
+
+	column issue_id
+		dataType: int64
+		lineageTag: dda7cd61-7557-5f2a-8407-7fe1085e899d
+		summarizeBy: none
+		sourceColumn: issue_id
+
+	column ticker
+		dataType: string
+		lineageTag: bcd06a67-dfd4-50da-9bd7-a0987ffa4e2c
+		summarizeBy: none
+		sourceColumn: ticker
+
+	column period_label
+		dataType: string
+		lineageTag: 139f13e2-e3d6-5238-b4f8-2c6697cad61e
+		summarizeBy: none
+		sourceColumn: period_label
+
+	column scope
+		dataType: string
+		lineageTag: 9bc79d33-af3e-5d84-8e2a-6a9f49181736
+		summarizeBy: none
+		sourceColumn: scope
+
+	column severity
+		dataType: string
+		lineageTag: f848ad28-bb75-596f-ae1c-ce2f3bf840bd
+		summarizeBy: none
+		sourceColumn: severity
+
+	column status
+		dataType: string
+		lineageTag: a053dd1a-cfcb-5f98-91d0-4ef48551fe19
+		summarizeBy: none
+		sourceColumn: status
+
+	column description
+		dataType: string
+		lineageTag: cc4516c2-3d75-57f2-9e5a-b2195832fa55
+		summarizeBy: none
+		sourceColumn: description
+
+	column evidence
+		dataType: string
+		lineageTag: 12006fd1-1bd6-56d0-b757-8aa5cdd237fb
+		summarizeBy: none
+		sourceColumn: evidence
+
+	partition known_issues = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "RetailFinance"),
+				    Data = Source{[Schema="dw",Item="known_data_issues"]}[Data]
+				in
+				    Data
+

@@ -1,0 +1,50 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p3_liquidity_footnotes",
+  "position": {
+    "x": 196,
+    "y": 668,
+    "z": 23000,
+    "height": 46,
+    "width": 1072,
+    "tabOrder": 14000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Kaynak: İş Yatırım (isyatirimhisse, resmî olmayan kaynak); kritik rakamlar KAP ile doğrulanmalı. ",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#A3B2D1"
+                    }
+                  },
+                  {
+                    "value": "TMS 29 (2023/12 ve sonrası): ",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#FFC58A"
+                    }
+                  },
+                  {
+                    "value": "dönemler arası büyüme ve çeyreklik farklar nominaldir; marj, likidite ve kaldıraç aynı dönem kolonu içinde hesaplandığı için etkilenmez. 2022/12, 2025/9 ve 2025/12 kolonlarında kaynakta baz kırılması var.",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#A3B2D1"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

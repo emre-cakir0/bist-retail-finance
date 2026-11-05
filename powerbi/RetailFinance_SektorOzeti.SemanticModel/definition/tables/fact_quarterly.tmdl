@@ -1,0 +1,170 @@
+table fact_quarterly
+	lineageTag: 0dc6bf05-1e12-585b-a508-4824e9c2e370
+
+	column company_key
+		dataType: int64
+		isHidden
+		lineageTag: c2554dfe-0806-51b7-930b-902a2887f57d
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column ticker
+		dataType: string
+		lineageTag: b669c902-ff62-529a-8850-749a44596b80
+		summarizeBy: none
+		sourceColumn: ticker
+
+	column short_name
+		dataType: string
+		lineageTag: bdaf3f63-8cf0-54aa-9466-fdf4d432a0c5
+		summarizeBy: none
+		sourceColumn: short_name
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 51c1b112-8bdc-58c4-8590-9d3c2c5e816e
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column period_label
+		dataType: string
+		lineageTag: 04e6478c-590b-5abf-b0e7-9b1fcf87e47a
+		summarizeBy: none
+		sourceColumn: period_label
+
+	column fiscal_year
+		dataType: int64
+		lineageTag: 89f9f832-5d83-5997-a0fb-2ea9f0ce8453
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	column fiscal_quarter
+		dataType: int64
+		lineageTag: c5589b26-2488-542e-ae2b-bc21ffb81654
+		summarizeBy: none
+		sourceColumn: fiscal_quarter
+
+	column year_quarter
+		dataType: string
+		lineageTag: 2092d449-036e-5485-89d0-3d13f8e1f4ff
+		summarizeBy: none
+		sourceColumn: year_quarter
+
+	column is_tms29
+		dataType: int64
+		lineageTag: e490d795-ad32-59f6-ba2f-bc8ae25debaf
+		summarizeBy: none
+		sourceColumn: is_tms29
+
+	column revenue_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: a58e8b64-7329-5f51-9db9-9f61a19ec64a
+		summarizeBy: none
+		sourceColumn: revenue_q
+
+	column gross_profit_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 6ea18ba5-0697-59c6-8407-cd10e3adab7c
+		summarizeBy: none
+		sourceColumn: gross_profit_q
+
+	column ebitda_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 4a9bd332-933e-5785-988f-4421e1cbcbad
+		summarizeBy: none
+		sourceColumn: ebitda_q
+
+	column core_operating_profit_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 2836137a-418b-5951-b3cb-4d501f126b67
+		summarizeBy: none
+		sourceColumn: core_operating_profit_q
+
+	column net_income_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: aacc5c1e-4988-501c-9937-4f61efb46739
+		summarizeBy: none
+		sourceColumn: net_income_q
+
+	column operating_cash_flow_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d7e66a7a-6484-5aac-9069-c3b2532357e1
+		summarizeBy: none
+		sourceColumn: operating_cash_flow_q
+
+	column capex_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 8f60b8b3-e3e2-582d-92ab-00838c5cc9b0
+		summarizeBy: none
+		sourceColumn: capex_q
+
+	column gross_margin_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 665093c9-995e-5690-8bfe-5c2f8643d2b4
+		summarizeBy: none
+		sourceColumn: gross_margin_q
+
+	column ebitda_margin_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 4c264c09-4c37-5cc7-986d-a487517f378e
+		summarizeBy: none
+		sourceColumn: ebitda_margin_q
+
+	column net_margin_q
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e7594b39-b95c-5b8e-9468-a06b92de4fd5
+		summarizeBy: none
+		sourceColumn: net_margin_q
+
+	column revenue_qoq_nominal
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d8424139-41d3-57a7-bfd2-e970ab7a9825
+		summarizeBy: none
+		sourceColumn: revenue_qoq_nominal
+
+	column revenue_yoy_nominal
+		dataType: double
+		formatString: 0.0000
+		lineageTag: c96bff51-6a05-5dc3-b789-6a3632607712
+		summarizeBy: none
+		sourceColumn: revenue_yoy_nominal
+
+	column known_issue_flag
+		dataType: int64
+		lineageTag: e5a56762-cc1c-5343-93c2-7e0eb9c7a6f0
+		summarizeBy: none
+		sourceColumn: known_issue_flag
+
+	column qoq_basis_ok
+		dataType: int64
+		lineageTag: 85098d58-e2e3-5476-ab59-2809eb532f19
+		summarizeBy: none
+		sourceColumn: qoq_basis_ok
+
+	column yoy_basis_ok
+		dataType: int64
+		lineageTag: 27cbbb47-7efe-5d55-bba7-5d76d1f16884
+		summarizeBy: none
+		sourceColumn: yoy_basis_ok
+
+	partition fact_quarterly = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "RetailFinance"),
+				    Data = Source{[Schema="dw",Item="vw_quarterly_std"]}[Data]
+				in
+				    Data
+

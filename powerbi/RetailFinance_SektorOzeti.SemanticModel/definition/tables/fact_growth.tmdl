@@ -1,0 +1,102 @@
+table fact_growth
+	lineageTag: 8475c23e-5229-5973-acff-eb875df0a388
+
+	column company_key
+		dataType: int64
+		isHidden
+		lineageTag: f5e56d96-1a8c-5875-899f-83891d696c6e
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column ticker
+		dataType: string
+		lineageTag: 896bc02c-5798-5c80-83e3-4457830b5f18
+		summarizeBy: none
+		sourceColumn: ticker
+
+	column short_name
+		dataType: string
+		lineageTag: a12dc83d-9347-5b36-ad04-aa3410a6b195
+		summarizeBy: none
+		sourceColumn: short_name
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: 105d82f1-da37-5b25-9a21-76a24db166aa
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column period_label
+		dataType: string
+		lineageTag: 0c55a43f-fd37-54df-92e9-88617177d264
+		summarizeBy: none
+		sourceColumn: period_label
+
+	column fiscal_year
+		dataType: int64
+		lineageTag: 2822a1d0-31e9-5aca-843f-70d3a5701249
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	column fiscal_quarter
+		dataType: int64
+		lineageTag: fff8d5f0-82d4-5562-b592-3ddc2c2977e1
+		summarizeBy: none
+		sourceColumn: fiscal_quarter
+
+	column year_quarter
+		dataType: string
+		lineageTag: be8cac7e-6571-5c87-b897-aa2fe1abbc6f
+		summarizeBy: none
+		sourceColumn: year_quarter
+
+	column is_tms29
+		dataType: int64
+		lineageTag: 36c9a883-24ba-5609-ad8e-42dde1087994
+		summarizeBy: none
+		sourceColumn: is_tms29
+
+	column revenue_ytd
+		dataType: double
+		formatString: 0.0000
+		lineageTag: ca0adfaf-8e74-590e-b2a2-52f0409f47ca
+		summarizeBy: none
+		sourceColumn: revenue_ytd
+
+	column revenue_ytd_prev_year
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e64c4fa4-786a-581d-b801-8532baba7348
+		summarizeBy: none
+		sourceColumn: revenue_ytd_prev_year
+
+	column revenue_growth_nominal
+		dataType: double
+		formatString: 0.0000
+		lineageTag: f070a1c7-795d-5e11-9c0e-dddbf3da2c38
+		summarizeBy: none
+		sourceColumn: revenue_growth_nominal
+
+	column ebitda_growth_nominal
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 70892139-5c4f-5dd2-875b-78c815d2a73f
+		summarizeBy: none
+		sourceColumn: ebitda_growth_nominal
+
+	column comparability
+		dataType: string
+		lineageTag: 87f83463-7346-57b7-889d-969b8447aaf9
+		summarizeBy: none
+		sourceColumn: comparability
+
+	partition fact_growth = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "RetailFinance"),
+				    Data = Source{[Schema="dw",Item="vw_growth_ytd"]}[Data]
+				in
+				    Data
+

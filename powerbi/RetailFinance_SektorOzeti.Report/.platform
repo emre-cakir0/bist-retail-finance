@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "RetailFinance_SektorOzeti"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "dde58873-485f-48c5-b059-65c642c008ed"
+  }
+}

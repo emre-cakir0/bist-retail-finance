@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "p3_liquidity_src",
+  "position": {
+    "x": 12,
+    "y": 660,
+    "z": 12000,
+    "height": 48,
+    "width": 160,
+    "tabOrder": 3000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Kaynak: İş Yatırım (resmî değil), KAP ile teyit edilmeli",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#A3B2D1"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

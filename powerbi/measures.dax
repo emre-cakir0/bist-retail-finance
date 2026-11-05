@@ -1,0 +1,296 @@
+// NOT: Bu dosya ilk taslaktır. Rapordaki güncel ölçüler powerbi/build_pbip.py içindedir
+// (filtre içinde ölçü çağrısı yerine VAR kullanımı, boş değerli sıralama ve büyüme düzeltmeleri).
+// =====================================================================
+// RetailFinance - Power BI DAX ölçüleri
+// Model tabloları (adlar bu dosyadaki gibi olmalı; kaynak SQL nesneleri parantezde):
+//   dim_company     (dw.dim_company)
+//   dim_date        (dw.dim_date)            + hesaplanmış sütun: period_index (aşağıda)
+//   fact_ratios     (dw.vw_ratios)           grain: şirket x dönem, YTD (aynı kolon içi oranlar)
+//   fact_quarterly  (dw.vw_quarterly_std)    grain: şirket x çeyrek, YTD farkından türetilmiş (nominal)
+//   fact_growth     (dw.vw_growth_ytd)       grain: şirket x dönem, bir önceki yıla göre YTD büyüme (nominal)
+//   known_issues    (dw.known_data_issues)   ilişkisiz tablo (TREATAS ile kullanılır)
+//   dq_results      (dw.dq_results)          ilişkisiz tablo
+// İlişkiler (çoktan-bire, tek yönlü): fact_*[company_key] -> dim_company[company_key]
+//                                      fact_*[date_key]    -> dim_date[date_key]
+// dim_date[period_label] sütununu dim_date[date_key] ile sırala (Sort by column).
+//
+// TASARIM İLKESİ: Oranlar aynı dönem kolonunun içinde hesaplanır (marj, cari oran, kaldıraç, DuPont).
+// Kolonlar arası ölçüler (QoQ, YoY, TTM) NOMİNALDİR; TMS 29 ve kaynak baz kırılmaları nedeniyle
+// "Growth Comparability" ölçüsüyle birlikte gösterilmelidir (bkz. dw.known_data_issues).
+// =====================================================================
+
+
+// ---------------------------------------------------------------------
+// 0) Hesaplanmış sütun (dim_date tablosunda)
+// ---------------------------------------------------------------------
+// period_index = dim_date[fiscal_year] * 4 + dim_date[fiscal_quarter]
+
+
+// ---------------------------------------------------------------------
+// 1) Seçili dönem
+// ---------------------------------------------------------------------
+Selected Date Key = MAX ( dim_date[date_key] )
+
+Selected Index = MAX ( dim_date[period_index] )
+
+Selected Period =
+LOOKUPVALUE ( dim_date[period_label], dim_date[date_key], [Selected Date Key] )
+
+
+// ---------------------------------------------------------------------
+// 2) Büyüklükler (YTD, raporlandığı gibi; TL)
+// ---------------------------------------------------------------------
+Revenue YTD =
+CALCULATE ( SUM ( fact_ratios[revenue] ), dim_date[date_key] = [Selected Date Key] )
+
+Revenue YTD (TL bn) = DIVIDE ( [Revenue YTD], 1000000000 )
+
+Gross Profit YTD =
+CALCULATE ( SUM ( fact_ratios[gross_profit] ), dim_date[date_key] = [Selected Date Key] )
+
+EBITDA YTD =
+CALCULATE ( SUM ( fact_ratios[ebitda] ), dim_date[date_key] = [Selected Date Key] )
+
+Net Income YTD =
+CALCULATE ( SUM ( fact_ratios[net_income] ), dim_date[date_key] = [Selected Date Key] )
+
+Net Debt =
+CALCULATE ( SUM ( fact_ratios[net_debt] ), dim_date[date_key] = [Selected Date Key] )
+
+Free Cash Flow YTD =
+CALCULATE ( SUM ( fact_ratios[fcf] ), dim_date[date_key] = [Selected Date Key] )
+
+
+// ---------------------------------------------------------------------
+// 3) Kârlılık (marjlar). Tek şirkette değer, birden çok şirkette basit ortalama.
+// ---------------------------------------------------------------------
+Gross Margin =
+CALCULATE ( AVERAGE ( fact_ratios[gross_margin] ), dim_date[date_key] = [Selected Date Key] )
+
+EBITDA Margin =
+CALCULATE ( AVERAGE ( fact_ratios[ebitda_margin] ), dim_date[date_key] = [Selected Date Key] )
+
+Core Operating Margin =
+CALCULATE ( AVERAGE ( fact_ratios[core_operating_margin] ), dim_date[date_key] = [Selected Date Key] )
+
+Net Margin =
+CALCULATE ( AVERAGE ( fact_ratios[net_margin] ), dim_date[date_key] = [Selected Date Key] )
+
+
+// ---------------------------------------------------------------------
+// 4) Likidite
+// ---------------------------------------------------------------------
+Current Ratio =
+CALCULATE ( AVERAGE ( fact_ratios[current_ratio] ), dim_date[date_key] = [Selected Date Key] )
+
+Quick Ratio =
+CALCULATE ( AVERAGE ( fact_ratios[quick_ratio] ), dim_date[date_key] = [Selected Date Key] )
+
+Cash Ratio =
+CALCULATE ( AVERAGE ( fact_ratios[cash_ratio] ), dim_date[date_key] = [Selected Date Key] )
+
+
+// ---------------------------------------------------------------------
+// 5) Borçluluk
+//    Not: FAVÖK marjı %1'in altındaysa SQL tarafı oranı BOŞ (anlamsız) bırakır.
+// ---------------------------------------------------------------------
+Net Debt to EBITDA =
+CALCULATE ( AVERAGE ( fact_ratios[net_debt_to_ebitda] ), dim_date[date_key] = [Selected Date Key] )
+
+Fin Debt to Equity =
+CALCULATE ( AVERAGE ( fact_ratios[fin_debt_to_equity] ), dim_date[date_key] = [Selected Date Key] )
+
+Liabilities to Assets =
+CALCULATE ( AVERAGE ( fact_ratios[liabilities_to_assets] ), dim_date[date_key] = [Selected Date Key] )
+
+EBITDA to Finance Expense =
+CALCULATE ( AVERAGE ( fact_ratios[ebitda_to_finance_expense] ), dim_date[date_key] = [Selected Date Key] )
+
+
+// ---------------------------------------------------------------------
+// 6) Çalışma sermayesi ve nakit üretimi
+// ---------------------------------------------------------------------
+Inventory Turnover =
+CALCULATE ( AVERAGE ( fact_ratios[inventory_turnover] ), dim_date[date_key] = [Selected Date Key] )
+
+DIO (days) =
+CALCULATE ( AVERAGE ( fact_ratios[dio] ), dim_date[date_key] = [Selected Date Key] )
+
+DSO (days) =
+CALCULATE ( AVERAGE ( fact_ratios[dso] ), dim_date[date_key] = [Selected Date Key] )
+
+DPO (days) =
+CALCULATE ( AVERAGE ( fact_ratios[dpo] ), dim_date[date_key] = [Selected Date Key] )
+
+Cash Conversion Cycle (days) =
+CALCULATE ( AVERAGE ( fact_ratios[cash_conversion_cycle] ), dim_date[date_key] = [Selected Date Key] )
+
+OCF to EBITDA =
+CALCULATE ( AVERAGE ( fact_ratios[ocf_to_ebitda] ), dim_date[date_key] = [Selected Date Key] )
+
+FCF Margin =
+CALCULATE ( AVERAGE ( fact_ratios[fcf_margin] ), dim_date[date_key] = [Selected Date Key] )
+
+Capex to Revenue =
+CALCULATE ( AVERAGE ( fact_ratios[capex_to_revenue] ), dim_date[date_key] = [Selected Date Key] )
+
+
+// ---------------------------------------------------------------------
+// 7) DuPont (yıllıklandırılmış, dönem sonu bakiye): ROE = net marj x varlık devri x özkaynak çarpanı
+//    Özkaynak <= 0 ise ROE ve çarpan BOŞ (anlamsız).
+// ---------------------------------------------------------------------
+DuPont Net Margin =
+CALCULATE ( AVERAGE ( fact_ratios[dupont_net_margin] ), dim_date[date_key] = [Selected Date Key] )
+
+DuPont Asset Turnover =
+CALCULATE ( AVERAGE ( fact_ratios[dupont_asset_turnover] ), dim_date[date_key] = [Selected Date Key] )
+
+DuPont Equity Multiplier =
+CALCULATE ( AVERAGE ( fact_ratios[dupont_equity_multiplier] ), dim_date[date_key] = [Selected Date Key] )
+
+ROE (annualized) =
+CALCULATE ( AVERAGE ( fact_ratios[roe_annualized] ), dim_date[date_key] = [Selected Date Key] )
+
+ROA (annualized) =
+CALCULATE ( AVERAGE ( fact_ratios[roa_annualized] ), dim_date[date_key] = [Selected Date Key] )
+
+
+// ---------------------------------------------------------------------
+// 8) Sektör karşılaştırması: sektör = dört şirketin basit ortalaması; sıra 1 = en iyi
+// ---------------------------------------------------------------------
+Sector Avg Gross Margin  = CALCULATE ( [Gross Margin],  ALL ( dim_company ) )
+Sector Avg EBITDA Margin = CALCULATE ( [EBITDA Margin], ALL ( dim_company ) )
+Sector Avg Net Margin    = CALCULATE ( [Net Margin],    ALL ( dim_company ) )
+Sector Avg Current Ratio = CALCULATE ( [Current Ratio], ALL ( dim_company ) )
+
+Gross Margin vs Sector (pp)  = [Gross Margin]  - [Sector Avg Gross Margin]
+EBITDA Margin vs Sector (pp) = [EBITDA Margin] - [Sector Avg EBITDA Margin]
+Net Margin vs Sector (pp)    = [Net Margin]    - [Sector Avg Net Margin]
+Current Ratio vs Sector      = [Current Ratio] - [Sector Avg Current Ratio]
+
+Gross Margin Rank =
+RANKX ( ALL ( dim_company[short_name] ), [Gross Margin], , DESC, DENSE )
+
+EBITDA Margin Rank =
+RANKX ( ALL ( dim_company[short_name] ), [EBITDA Margin], , DESC, DENSE )
+
+Net Margin Rank =
+RANKX ( ALL ( dim_company[short_name] ), [Net Margin], , DESC, DENSE )
+
+Leverage Rank (1 = lowest) =
+RANKX ( ALL ( dim_company[short_name] ), [Net Debt to EBITDA], , ASC, DENSE )
+
+Cash Conversion Rank =
+RANKX ( ALL ( dim_company[short_name] ), [OCF to EBITDA], , DESC, DENSE )
+
+
+// ---------------------------------------------------------------------
+// 9) Çeyreklik ölçüler (YTD farkından türetilmiş, NOMİNAL; baz kırılması bayrağına bakın)
+// ---------------------------------------------------------------------
+Revenue Q = SUM ( fact_quarterly[revenue_q] )
+
+EBITDA Q = SUM ( fact_quarterly[ebitda_q] )
+
+Net Income Q = SUM ( fact_quarterly[net_income_q] )
+
+EBITDA Margin Q = DIVIDE ( [EBITDA Q], [Revenue Q] )
+
+Revenue QoQ (nominal) =
+VAR _cur  = [Revenue Q]
+VAR _prev =
+    CALCULATE (
+        [Revenue Q],
+        FILTER ( ALL ( dim_date ), dim_date[period_index] = [Selected Index] - 1 )
+    )
+RETURN
+    DIVIDE ( _cur, _prev ) - 1
+
+Revenue TTM (nominal) =
+VAR _idx = [Selected Index]
+RETURN
+    CALCULATE (
+        SUM ( fact_quarterly[revenue_q] ),
+        FILTER ( ALL ( dim_date ), dim_date[period_index] > _idx - 4 && dim_date[period_index] <= _idx )
+    )
+
+EBITDA TTM (nominal) =
+VAR _idx = [Selected Index]
+RETURN
+    CALCULATE (
+        SUM ( fact_quarterly[ebitda_q] ),
+        FILTER ( ALL ( dim_date ), dim_date[period_index] > _idx - 4 && dim_date[period_index] <= _idx )
+    )
+
+// Çeyreklik türetmenin güvenilir olup olmadığı (1 = güvenilir)
+Quarter Basis OK =
+IF ( CALCULATE ( MIN ( fact_quarterly[qoq_basis_ok] ), dim_date[date_key] = [Selected Date Key] ) = 1, 1, 0 )
+
+
+// ---------------------------------------------------------------------
+// 10) YTD büyüme (aynı dönem, bir önceki yıl). NOMİNAL; TMS 29 sonrası reel büyüme değildir.
+// ---------------------------------------------------------------------
+Revenue YTD PY =
+CALCULATE ( SUM ( fact_ratios[revenue] ), dim_date[date_key] = [Selected Date Key] - 100 )
+
+Revenue Growth YoY (nominal) =
+DIVIDE ( [Revenue YTD], [Revenue YTD PY] ) - 1
+
+Growth Comparability =
+VAR _break =
+    CALCULATE (
+        COUNTROWS ( fact_growth ),
+        fact_growth[comparability] = "BASE_BREAK",
+        dim_date[date_key] = [Selected Date Key]
+    )
+RETURN
+    IF (
+        _break > 0, "BASE_BREAK",
+        IF ( [Selected Date Key] >= 202312, "NOMINAL_TMS29", "NOMINAL" )
+    )
+
+
+// ---------------------------------------------------------------------
+// 11) Uyarı kutuları (kart/metin görselleri için)
+// ---------------------------------------------------------------------
+TMS29 Banner =
+IF (
+    [Selected Date Key] >= 202312,
+    "TMS 29 donemi: her donem kolonu kendi donem sonu satin alma gucuyle ifade edilir. "
+        & "Donemler arasi buyume ve ceyreklik farklar nominaldir, 2023 oncesiyle dogrudan karsilastirilmaz.",
+    BLANK ()
+)
+
+Known Issue Count =
+CALCULATE (
+    COUNTROWS ( known_issues ),
+    TREATAS ( VALUES ( dim_company[ticker] ), known_issues[ticker] ),
+    TREATAS ( VALUES ( dim_date[period_label] ), known_issues[period_label] )
+)
+
+Data Issue Banner =
+IF (
+    [Known Issue Count] > 0,
+    "UYARI: Bu sirket/donem icin kaynak veride bilinen bir sorun var (known_issues tablosuna bakin).",
+    BLANK ()
+)
+
+Growth Banner =
+IF (
+    [Growth Comparability] = "BASE_BREAK",
+    "Buyume karsilastirmasi guvenilir degil (baz kirilmasi). Gostermeyin ya da dipnotla belirtin.",
+    IF ( [Growth Comparability] = "NOMINAL_TMS29", "Buyume nominal TL'dir; reel buyume degildir.", BLANK () )
+)
+
+
+// ---------------------------------------------------------------------
+// 12) Veri kalite kartları
+// ---------------------------------------------------------------------
+DQ Total Checks = COUNTROWS ( dq_results )
+
+DQ Pass = CALCULATE ( COUNTROWS ( dq_results ), dq_results[result] = "PASS" )
+
+DQ Explained = CALCULATE ( COUNTROWS ( dq_results ), dq_results[result] = "EXPLAINED" )
+
+DQ Fail = CALCULATE ( COUNTROWS ( dq_results ), dq_results[result] = "FAIL" )
+
+DQ Pass or Explained % = DIVIDE ( [DQ Pass] + [DQ Explained], [DQ Total Checks] )

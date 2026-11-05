@@ -1,0 +1,305 @@
+table fact_ratios
+	lineageTag: d5d82bbd-5e7b-58fd-a804-cc843b4eb504
+
+	column company_key
+		dataType: int64
+		isHidden
+		lineageTag: 6477eec6-8d06-52ce-8c17-95b12b9deb57
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column ticker
+		dataType: string
+		lineageTag: 4ebc33fd-1de5-57cb-a909-513d75ec72a0
+		summarizeBy: none
+		sourceColumn: ticker
+
+	column short_name
+		dataType: string
+		lineageTag: 322d63ce-6b15-595b-8b81-624302bde4a8
+		summarizeBy: none
+		sourceColumn: short_name
+
+	column date_key
+		dataType: int64
+		isHidden
+		lineageTag: a7a8a316-e548-5570-bf3a-db6d557616c5
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column period_label
+		dataType: string
+		lineageTag: ee81ce2d-768b-50c1-8c6b-e74c36c07ffa
+		summarizeBy: none
+		sourceColumn: period_label
+
+	column fiscal_year
+		dataType: int64
+		lineageTag: 283f2e0c-1e6a-5cfb-adac-0e338623ced2
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	column fiscal_quarter
+		dataType: int64
+		lineageTag: f292ea06-0aba-57d9-a1d0-7948d97d32a6
+		summarizeBy: none
+		sourceColumn: fiscal_quarter
+
+	column year_quarter
+		dataType: string
+		lineageTag: 5cb89ec6-ae5a-5915-a2a0-4177833341f7
+		summarizeBy: none
+		sourceColumn: year_quarter
+
+	column period_month
+		dataType: int64
+		lineageTag: 7fc14a63-e097-5499-a0f2-3b09be5c5058
+		summarizeBy: none
+		sourceColumn: period_month
+
+	column is_tms29
+		dataType: int64
+		lineageTag: e427f683-9d8c-5f3a-9528-211a0fc92899
+		summarizeBy: none
+		sourceColumn: is_tms29
+
+	column revenue
+		dataType: double
+		formatString: 0.0000
+		lineageTag: f83294be-a7a7-5986-8273-979dc89c338d
+		summarizeBy: none
+		sourceColumn: revenue
+
+	column gross_profit
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 2f0ba04c-aba3-5c54-9af5-b9ca9ef50999
+		summarizeBy: none
+		sourceColumn: gross_profit
+
+	column core_operating_profit
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e4938656-0306-5182-b664-456e5d4dfb52
+		summarizeBy: none
+		sourceColumn: core_operating_profit
+
+	column operating_profit
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 3cfd5443-deb9-54d5-9488-dcfc5130f79f
+		summarizeBy: none
+		sourceColumn: operating_profit
+
+	column ebitda
+		dataType: double
+		formatString: 0.0000
+		lineageTag: dfa680df-c13d-521a-9544-86758a78e957
+		summarizeBy: none
+		sourceColumn: ebitda
+
+	column net_income
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 2b349c04-1cb6-5f7f-acf4-99cb8d313cf8
+		summarizeBy: none
+		sourceColumn: net_income
+
+	column net_debt
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 1e85495d-676e-5ed7-9a16-164daf67a9cc
+		summarizeBy: none
+		sourceColumn: net_debt
+
+	column fcf
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d7fbb728-47e8-56d7-b557-14680f5ab390
+		summarizeBy: none
+		sourceColumn: fcf
+
+	column gross_margin
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 8a1921e8-539d-5a1c-b52c-eca5ce2ca7e5
+		summarizeBy: none
+		sourceColumn: gross_margin
+
+	column ebitda_margin
+		dataType: double
+		formatString: 0.0000
+		lineageTag: ec58fa19-e805-538f-8bae-dd5a40d6003d
+		summarizeBy: none
+		sourceColumn: ebitda_margin
+
+	column core_operating_margin
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 0ff9a10c-2a90-5fcf-84b1-0f80b9cb0729
+		summarizeBy: none
+		sourceColumn: core_operating_margin
+
+	column operating_margin
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 7217881f-f18e-57c9-b36d-bac9b6e26842
+		summarizeBy: none
+		sourceColumn: operating_margin
+
+	column net_margin
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 5e85df4a-eb13-5a35-8b1a-72a83465631c
+		summarizeBy: none
+		sourceColumn: net_margin
+
+	column current_ratio
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d9ae686c-b856-5ef3-9a46-e3eb8f781ba3
+		summarizeBy: none
+		sourceColumn: current_ratio
+
+	column quick_ratio
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e1c013df-e5b7-547b-8f79-dab86c33fcb1
+		summarizeBy: none
+		sourceColumn: quick_ratio
+
+	column cash_ratio
+		dataType: double
+		formatString: 0.0000
+		lineageTag: d464d185-115d-53f6-8362-b57d7439c7f1
+		summarizeBy: none
+		sourceColumn: cash_ratio
+
+	column net_debt_to_ebitda
+		dataType: double
+		formatString: 0.0000
+		lineageTag: eea0b6cc-5a60-55cb-b07f-db96ad6f1c50
+		summarizeBy: none
+		sourceColumn: net_debt_to_ebitda
+
+	column fin_debt_to_equity
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 2c5e5b31-0c18-5abc-af95-38b4143759a0
+		summarizeBy: none
+		sourceColumn: fin_debt_to_equity
+
+	column liabilities_to_assets
+		dataType: double
+		formatString: 0.0000
+		lineageTag: b05244b7-998b-5e44-8a15-05fb126e8b7e
+		summarizeBy: none
+		sourceColumn: liabilities_to_assets
+
+	column ebitda_to_finance_expense
+		dataType: double
+		formatString: 0.0000
+		lineageTag: fca5e9ab-789c-552c-a7f2-e93296b41f76
+		summarizeBy: none
+		sourceColumn: ebitda_to_finance_expense
+
+	column inventory_turnover
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e827528b-8964-5336-9dae-ec110de38949
+		summarizeBy: none
+		sourceColumn: inventory_turnover
+
+	column dio
+		dataType: double
+		formatString: 0.0000
+		lineageTag: e496a263-8f59-549e-8cb7-569bff199644
+		summarizeBy: none
+		sourceColumn: dio
+
+	column dso
+		dataType: double
+		formatString: 0.0000
+		lineageTag: ed6905c4-c5d7-541e-bfdf-8764cd49a534
+		summarizeBy: none
+		sourceColumn: dso
+
+	column dpo
+		dataType: double
+		formatString: 0.0000
+		lineageTag: b17c9ac0-751a-5ec0-a33c-8ed7bcc52b5e
+		summarizeBy: none
+		sourceColumn: dpo
+
+	column cash_conversion_cycle
+		dataType: double
+		formatString: 0.0000
+		lineageTag: df2e47d2-b3f7-552e-92af-f23ef5955d29
+		summarizeBy: none
+		sourceColumn: cash_conversion_cycle
+
+	column ocf_to_ebitda
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 28f2a722-2a59-5f78-8f3c-e680f0b1ead1
+		summarizeBy: none
+		sourceColumn: ocf_to_ebitda
+
+	column fcf_margin
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 5961cd11-9c74-52de-84b6-dcebf7e79a80
+		summarizeBy: none
+		sourceColumn: fcf_margin
+
+	column capex_to_revenue
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 80f90431-b241-5ef2-a10d-96efc2ccd7f3
+		summarizeBy: none
+		sourceColumn: capex_to_revenue
+
+	column dupont_net_margin
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 71532a59-308e-526b-9e1f-28e5339f9caa
+		summarizeBy: none
+		sourceColumn: dupont_net_margin
+
+	column dupont_asset_turnover
+		dataType: double
+		formatString: 0.0000
+		lineageTag: de0c1cec-2bfd-5271-abcc-0996abf7e288
+		summarizeBy: none
+		sourceColumn: dupont_asset_turnover
+
+	column dupont_equity_multiplier
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 3069aea4-c37a-51e1-b0d1-6d93005786da
+		summarizeBy: none
+		sourceColumn: dupont_equity_multiplier
+
+	column roe_annualized
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 23d2bd8d-18bb-5512-b14d-3781def8a3a5
+		summarizeBy: none
+		sourceColumn: roe_annualized
+
+	column roa_annualized
+		dataType: double
+		formatString: 0.0000
+		lineageTag: 699cf3b5-8319-5e87-a475-8d1df830bbc6
+		summarizeBy: none
+		sourceColumn: roa_annualized
+
+	partition fact_ratios = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "RetailFinance"),
+				    Data = Source{[Schema="dw",Item="vw_ratios"]}[Data]
+				in
+				    Data
+

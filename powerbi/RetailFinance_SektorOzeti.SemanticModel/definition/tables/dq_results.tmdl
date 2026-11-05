@@ -1,0 +1,54 @@
+table dq_results
+	lineageTag: 438801ce-594c-5721-bdb6-9639d24e21db
+
+	column result_id
+		dataType: int64
+		lineageTag: 386f9ad2-8316-5533-a761-b23fe2930c11
+		summarizeBy: none
+		sourceColumn: result_id
+
+	column run_at
+		dataType: dateTime
+		lineageTag: df456d56-6960-5289-928a-f5d5555559c0
+		summarizeBy: none
+		sourceColumn: run_at
+
+	column test_name
+		dataType: string
+		lineageTag: 85f73bf4-43f8-5fcf-9de6-92e2d559549c
+		summarizeBy: none
+		sourceColumn: test_name
+
+	column ticker
+		dataType: string
+		lineageTag: 9ade01d8-7419-58ed-a156-6aed5ebaf1fb
+		summarizeBy: none
+		sourceColumn: ticker
+
+	column period_label
+		dataType: string
+		lineageTag: 1c9698f8-d587-5ed2-b8a6-363db22ec78d
+		summarizeBy: none
+		sourceColumn: period_label
+
+	column result
+		dataType: string
+		lineageTag: 5b912b1c-b5ea-5bdb-8918-a1ecec7f6eab
+		summarizeBy: none
+		sourceColumn: result
+
+	column detail
+		dataType: string
+		lineageTag: bbbb9a85-6697-565f-8dd6-f3689841536a
+		summarizeBy: none
+		sourceColumn: detail
+
+	partition dq_results = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "RetailFinance"),
+				    Data = Source{[Schema="dw",Item="dq_results"]}[Data]
+				in
+				    Data
+

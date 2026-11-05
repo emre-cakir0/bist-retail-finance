@@ -1,0 +1,24 @@
+relationship fact_ratios_company_key
+	fromColumn: fact_ratios.company_key
+	toColumn: dim_company.company_key
+
+relationship fact_ratios_date_key
+	fromColumn: fact_ratios.date_key
+	toColumn: dim_date.date_key
+
+relationship fact_quarterly_company_key
+	fromColumn: fact_quarterly.company_key
+	toColumn: dim_company.company_key
+
+relationship fact_quarterly_date_key
+	fromColumn: fact_quarterly.date_key
+	toColumn: dim_date.date_key
+
+relationship fact_growth_company_key
+	fromColumn: fact_growth.company_key
+	toColumn: dim_company.company_key
+
+relationship fact_growth_date_key
+	fromColumn: fact_growth.date_key
+	toColumn: dim_date.date_key
+

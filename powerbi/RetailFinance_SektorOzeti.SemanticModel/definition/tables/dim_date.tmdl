@@ -1,0 +1,70 @@
+table dim_date
+	lineageTag: 1a692293-dae1-5130-ae3b-b2d1215b061b
+
+	column date_key
+		dataType: int64
+		lineageTag: 31ce300f-b447-52c5-97aa-994bb9e5a497
+		summarizeBy: none
+		sourceColumn: date_key
+
+	column period_end_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: d1ad8a55-08ff-5746-926e-303ff6ffa8bf
+		summarizeBy: none
+		sourceColumn: period_end_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column fiscal_year
+		dataType: int64
+		lineageTag: b0aad5d6-a1ca-5ef6-bce7-827f30c32480
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+	column fiscal_quarter
+		dataType: int64
+		lineageTag: 61fa2fbe-58d3-5c1d-b82d-c6ea890760a8
+		summarizeBy: none
+		sourceColumn: fiscal_quarter
+
+	column period_month
+		dataType: int64
+		lineageTag: 3710c431-5034-552d-9f13-ab8259ca1443
+		summarizeBy: none
+		sourceColumn: period_month
+
+	column period_label
+		dataType: string
+		lineageTag: ce61477e-478c-5782-a73c-2affc204f05b
+		summarizeBy: none
+		sourceColumn: period_label
+		sortByColumn: date_key
+
+	column year_quarter
+		dataType: string
+		lineageTag: bd229ed6-0fc0-578a-8c31-d3788395708f
+		summarizeBy: none
+		sourceColumn: year_quarter
+
+	column is_tms29_era
+		dataType: boolean
+		lineageTag: b236cd57-a9f8-5c22-a9c5-86feb601cd29
+		summarizeBy: none
+		sourceColumn: is_tms29_era
+
+	column period_index = dim_date[fiscal_year] * 4 + dim_date[fiscal_quarter]
+		dataType: int64
+		formatString: 0
+		lineageTag: 1198f855-3375-5432-863c-9d97fe3fd03d
+		summarizeBy: none
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "RetailFinance"),
+				    Data = Source{[Schema="dw",Item="dim_date"]}[Data]
+				in
+				    Data
+

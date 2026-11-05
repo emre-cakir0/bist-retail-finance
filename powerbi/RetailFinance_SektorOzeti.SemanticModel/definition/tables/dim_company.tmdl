@@ -1,0 +1,64 @@
+table dim_company
+	lineageTag: 1e89b553-2260-58ef-8a10-40b322984059
+
+	column company_key
+		dataType: int64
+		isHidden
+		lineageTag: 286a38b0-813a-58a3-a089-9f82ef213a2f
+		summarizeBy: none
+		sourceColumn: company_key
+
+	column ticker
+		dataType: string
+		lineageTag: e3a7451a-a79a-5fc4-aa9a-c9bc0c80c1f5
+		summarizeBy: none
+		sourceColumn: ticker
+
+	column company_name
+		dataType: string
+		lineageTag: d88e3ba2-8783-55b1-93f8-70e1a13ffb19
+		summarizeBy: none
+		sourceColumn: company_name
+
+	column short_name
+		dataType: string
+		lineageTag: 9e706ed8-9672-53b6-8aae-c4f3b027f3bc
+		summarizeBy: none
+		sourceColumn: short_name
+
+	column sector
+		dataType: string
+		lineageTag: 29588e85-ac74-5240-9314-19e67c9bb0ab
+		summarizeBy: none
+		sourceColumn: sector
+
+	column financial_group
+		dataType: string
+		lineageTag: b2707025-4b99-5310-a336-996fb34efac9
+		summarizeBy: none
+		sourceColumn: financial_group
+
+	column tms29_start_date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 1159f99a-e597-54e4-9be8-4a9991cf2071
+		summarizeBy: none
+		sourceColumn: tms29_start_date
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column tms29_source
+		dataType: string
+		lineageTag: b1ae3580-11e7-512b-abe1-a7a6e585655f
+		summarizeBy: none
+		sourceColumn: tms29_source
+
+	partition dim_company = m
+		mode: import
+		source =
+				let
+				    Source = Sql.Database("localhost\SQLEXPRESS", "RetailFinance"),
+				    Data = Source{[Schema="dw",Item="dim_company"]}[Data]
+				in
+				    Data
+

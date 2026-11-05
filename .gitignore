@@ -1,0 +1,14 @@
+# Raw statements come from an unofficial source (isyatirimhisse) for personal use; not committed.
+# Recreate them with: python 02_extract_raw.py
+data/raw/*.csv
+data/raw/_inspect.txt
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Power BI local settings and data cache (machine-specific, contain cached data)
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+*.pbix.bak

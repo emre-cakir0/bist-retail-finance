@@ -1,0 +1,4 @@
+isyatirimhisse==5.0.1
+pandas
+numpy
+pyodbc

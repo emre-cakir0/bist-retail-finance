@@ -1,0 +1,648 @@
+table _Measures
+	lineageTag: bc5fd3a4-1474-5f04-9e24-ca611b380222
+
+	measure 'Selected Date Key' = MAX ( dim_date[date_key] )
+		formatString: 0
+		displayFolder: 0 Dönem
+		lineageTag: 9fac57e9-ad6b-51a2-a978-a78e1d79f0e1
+
+	measure 'Selected Index' = MAX ( dim_date[period_index] )
+		formatString: 0
+		displayFolder: 0 Dönem
+		lineageTag: d9e87044-50c8-5b24-af70-f301195b411d
+
+	measure 'Selected Period' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    LOOKUPVALUE ( dim_date[period_label], dim_date[date_key], _d )
+		displayFolder: 0 Dönem
+		lineageTag: 4901463a-8c76-50fd-9e33-84de3eed3cb8
+
+	measure 'Revenue YTD' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( SUM ( fact_ratios[revenue] ), dim_date[date_key] = _d )
+		formatString: #,##0
+		displayFolder: 1 Büyüklükler
+		lineageTag: d81157fa-13b9-559d-a952-768e1e299e88
+
+	measure 'Gross Profit YTD' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( SUM ( fact_ratios[gross_profit] ), dim_date[date_key] = _d )
+		formatString: #,##0
+		displayFolder: 1 Büyüklükler
+		lineageTag: ebdd9cc2-6f29-54f6-a505-7852b7e42736
+
+	measure 'EBITDA YTD' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( SUM ( fact_ratios[ebitda] ), dim_date[date_key] = _d )
+		formatString: #,##0
+		displayFolder: 1 Büyüklükler
+		lineageTag: 295b5515-8aff-5995-9288-ce4e7dfec828
+
+	measure 'Net Income YTD' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( SUM ( fact_ratios[net_income] ), dim_date[date_key] = _d )
+		formatString: #,##0
+		displayFolder: 1 Büyüklükler
+		lineageTag: 254062de-5163-5877-a461-0ff517be3260
+
+	measure 'Net Debt' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( SUM ( fact_ratios[net_debt] ), dim_date[date_key] = _d )
+		formatString: #,##0
+		displayFolder: 1 Büyüklükler
+		lineageTag: 78a0ddea-823a-5267-9b21-13a9e80c89f3
+
+	measure 'Free Cash Flow YTD' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( SUM ( fact_ratios[fcf] ), dim_date[date_key] = _d )
+		formatString: #,##0
+		displayFolder: 1 Büyüklükler
+		lineageTag: b2d69207-d9e6-5438-a752-607fdb82e1c3
+
+	measure 'Revenue YTD (TL bn)' = DIVIDE ( [Revenue YTD], 1000000000 )
+		formatString: #,##0.0
+		displayFolder: 1 Büyüklükler
+		lineageTag: bfbc24c1-a361-5f0c-9237-9d8171587ad8
+
+	measure 'Gross Margin' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[gross_margin] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 2 Kârlılık
+		lineageTag: 68f45aec-adf4-50bc-92ed-ca692f353273
+
+	measure 'EBITDA Margin' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[ebitda_margin] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 2 Kârlılık
+		lineageTag: aac0bdd0-aba7-56c4-bdf6-3873bd130a33
+
+	measure 'Core Operating Margin' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[core_operating_margin] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 2 Kârlılık
+		lineageTag: a13746dc-8a70-5da1-bbdb-47419a9d526f
+
+	measure 'Net Margin' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[net_margin] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 2 Kârlılık
+		lineageTag: 568d3532-f617-5a22-b16b-14ac39228a9f
+
+	measure 'Current Ratio' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[current_ratio] ), dim_date[date_key] = _d )
+		formatString: 0.00
+		displayFolder: 3 Likidite
+		lineageTag: f68ec4a1-c5c1-508d-91f9-2bc13d8b8164
+
+	measure 'Quick Ratio' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[quick_ratio] ), dim_date[date_key] = _d )
+		formatString: 0.00
+		displayFolder: 3 Likidite
+		lineageTag: 64c87d73-ff6b-5999-b039-71400575579e
+
+	measure 'Cash Ratio' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[cash_ratio] ), dim_date[date_key] = _d )
+		formatString: 0.00
+		displayFolder: 3 Likidite
+		lineageTag: d6ec5afe-96ec-5e41-92ee-8043b17e7e4a
+
+	measure 'Net Debt to EBITDA' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[net_debt_to_ebitda] ), dim_date[date_key] = _d )
+		formatString: 0.00"x"
+		displayFolder: 4 Borçluluk
+		lineageTag: 93a85fc4-96a6-594a-bbec-fae6d9d3e6e5
+
+	measure 'Liabilities to Assets' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[liabilities_to_assets] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 4 Borçluluk
+		lineageTag: 22e0b1ea-bcee-5d3a-a877-19bdbf17c56c
+
+	measure 'EBITDA to Finance Expense' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[ebitda_to_finance_expense] ), dim_date[date_key] = _d )
+		formatString: 0.00"x"
+		displayFolder: 4 Borçluluk
+		lineageTag: aeef8ba4-d877-5c2f-a476-bb1152153894
+
+	measure 'Inventory Turnover' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[inventory_turnover] ), dim_date[date_key] = _d )
+		formatString: 0.00
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: 24161679-64e9-5a1f-bf69-737df3f3d0cd
+
+	measure 'DIO (days)' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[dio] ), dim_date[date_key] = _d )
+		formatString: 0.0
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: 75e145e8-8436-5458-98fb-0a7bd791cda8
+
+	measure 'DSO (days)' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[dso] ), dim_date[date_key] = _d )
+		formatString: 0.0
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: 07c10eda-23ac-5cb3-99e1-a08b44a65b95
+
+	measure 'DPO (days)' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[dpo] ), dim_date[date_key] = _d )
+		formatString: 0.0
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: aaa6ca93-3565-5c77-81cb-40320442e2c0
+
+	measure 'Cash Conversion Cycle (days)' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[cash_conversion_cycle] ), dim_date[date_key] = _d )
+		formatString: 0.0
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: 7c52e994-c28b-521a-80fa-94c0e69d2c3f
+
+	measure 'OCF to EBITDA' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[ocf_to_ebitda] ), dim_date[date_key] = _d )
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: d1ef4f28-94e7-5298-8356-2ef9c1a5e6ca
+
+		formatStringDefinition = "0.00x"
+
+	measure 'FCF Margin' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[fcf_margin] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: 1cfb6e8a-b0d6-57be-ba82-886bcadd2199
+
+	measure 'Capex to Revenue' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[capex_to_revenue] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 5 Çalışma sermayesi ve nakit
+		lineageTag: 76396afe-1dfa-547d-81ad-0f08e1ddabdb
+
+	measure 'DuPont Net Margin' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[dupont_net_margin] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 6 DuPont
+		lineageTag: 814e1f9a-906d-5b4a-847b-3ff6f45aa9e5
+
+	measure 'DuPont Asset Turnover' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[dupont_asset_turnover] ), dim_date[date_key] = _d )
+		formatString: 0.00
+		displayFolder: 6 DuPont
+		lineageTag: cb702c66-9ddd-5c32-99f8-765d03ac37dc
+
+	measure 'DuPont Equity Multiplier' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[dupont_equity_multiplier] ), dim_date[date_key] = _d )
+		formatString: 0.00
+		displayFolder: 6 DuPont
+		lineageTag: 97702428-df9d-553d-babc-7ccbb7ad0108
+
+	measure 'ROE (annualized)' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[roe_annualized] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 6 DuPont
+		lineageTag: a9167b92-d483-5b69-a338-86a807e4b21c
+
+	measure 'ROA (annualized)' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[roa_annualized] ), dim_date[date_key] = _d )
+		formatString: 0.0%
+		displayFolder: 6 DuPont
+		lineageTag: 73b8acbc-88ca-58a1-99b5-450ffe29e5cf
+
+	measure 'Fin Debt to Equity' =
+			VAR _d = [Selected Date Key]
+			VAR _v = CALCULATE ( AVERAGE ( fact_ratios[fin_debt_to_equity] ), dim_date[date_key] = _d )
+			RETURN
+			    IF ( _v < 0, BLANK (), _v )
+		formatString: 0.00"x"
+		displayFolder: 4 Borçluluk
+		lineageTag: cc991831-6648-5526-9a2d-36976d59bbed
+
+	measure 'Sector Avg Gross Margin' = CALCULATE ( [Gross Margin], ALL ( dim_company ) )
+		formatString: 0.0%
+		displayFolder: 7 Sektör
+		lineageTag: d5a23ed7-2ace-5e93-aa52-a2eb9ff9c5af
+
+	measure 'Sector Avg EBITDA Margin' = CALCULATE ( [EBITDA Margin], ALL ( dim_company ) )
+		formatString: 0.0%
+		displayFolder: 7 Sektör
+		lineageTag: 1a9d3b90-b824-5dce-b34d-13c468a546e8
+
+	measure 'Sector Avg Net Margin' = CALCULATE ( [Net Margin], ALL ( dim_company ) )
+		formatString: 0.0%
+		displayFolder: 7 Sektör
+		lineageTag: 254c31ab-9a3a-5edb-8b8d-1bfe6d77d8f0
+
+	measure 'Sector Avg Current Ratio' = CALCULATE ( [Current Ratio], ALL ( dim_company ) )
+		formatString: 0.00
+		displayFolder: 7 Sektör
+		lineageTag: 4888cf4c-5c05-54a2-a44c-0af690d98d0e
+
+	measure 'Gross Margin vs Sector (pp)' = [Gross Margin] - [Sector Avg Gross Margin]
+		formatString: 0.0%
+		displayFolder: 7 Sektör
+		lineageTag: 29272bcf-71af-53fb-9e1f-3d299b5ac9bb
+
+	measure 'EBITDA Margin vs Sector (pp)' = [EBITDA Margin] - [Sector Avg EBITDA Margin]
+		formatString: 0.0%
+		displayFolder: 7 Sektör
+		lineageTag: c08703a8-e884-5c20-8a73-38b23a16489e
+
+	measure 'Net Margin vs Sector (pp)' = [Net Margin] - [Sector Avg Net Margin]
+		formatString: 0.0%
+		displayFolder: 7 Sektör
+		lineageTag: d54f5188-e5f6-5d63-87f4-f5d5af4de0d8
+
+	measure 'Current Ratio vs Sector' = [Current Ratio] - [Sector Avg Current Ratio]
+		formatString: 0.00
+		displayFolder: 7 Sektör
+		lineageTag: 8d742ee3-f9ff-574a-8ab8-48d46c5e007d
+
+	measure 'Gross Margin Rank' =
+			IF (
+			    NOT ISBLANK ( [Gross Margin] ),
+			    RANKX (
+			        FILTER ( ALL ( dim_company[short_name] ), NOT ISBLANK ( [Gross Margin] ) ),
+			        [Gross Margin], , DESC, DENSE
+			    )
+			)
+		formatString: 0
+		displayFolder: 7 Sektör
+		lineageTag: 2cc43fdf-b0a0-5dfb-b77d-f6a75203b531
+
+	measure 'EBITDA Margin Rank' =
+			IF (
+			    NOT ISBLANK ( [EBITDA Margin] ),
+			    RANKX (
+			        FILTER ( ALL ( dim_company[short_name] ), NOT ISBLANK ( [EBITDA Margin] ) ),
+			        [EBITDA Margin], , DESC, DENSE
+			    )
+			)
+		formatString: 0
+		displayFolder: 7 Sektör
+		lineageTag: 44b21304-30af-5afb-a06e-b3faa90c891a
+
+	measure 'Net Margin Rank' =
+			IF (
+			    NOT ISBLANK ( [Net Margin] ),
+			    RANKX (
+			        FILTER ( ALL ( dim_company[short_name] ), NOT ISBLANK ( [Net Margin] ) ),
+			        [Net Margin], , DESC, DENSE
+			    )
+			)
+		formatString: 0
+		displayFolder: 7 Sektör
+		lineageTag: bbf14d5e-0f00-5f2a-b366-2f2ec5fda172
+
+	measure 'Leverage Rank (1 = lowest)' =
+			IF (
+			    NOT ISBLANK ( [Net Debt to EBITDA] ),
+			    RANKX (
+			        FILTER ( ALL ( dim_company[short_name] ), NOT ISBLANK ( [Net Debt to EBITDA] ) ),
+			        [Net Debt to EBITDA], , ASC, DENSE
+			    )
+			)
+		formatString: 0
+		displayFolder: 7 Sektör
+		lineageTag: 40d40277-09fd-50d4-9068-50402cef3bf4
+
+	measure 'Cash Conversion Rank' =
+			IF (
+			    NOT ISBLANK ( [OCF to EBITDA] ),
+			    RANKX (
+			        FILTER ( ALL ( dim_company[short_name] ), NOT ISBLANK ( [OCF to EBITDA] ) ),
+			        [OCF to EBITDA], , DESC, DENSE
+			    )
+			)
+		formatString: 0
+		displayFolder: 7 Sektör
+		lineageTag: e56d2508-637e-5c70-b1f6-794e5cb677c7
+
+	measure 'Revenue Q' = SUM ( fact_quarterly[revenue_q] )
+		formatString: #,##0
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: a2ce8781-bb4c-5061-bd6d-fb1a44864efe
+
+	measure 'EBITDA Q' = SUM ( fact_quarterly[ebitda_q] )
+		formatString: #,##0
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: 23f4fa9b-1ced-5d75-bd8c-5381f841955c
+
+	measure 'Net Income Q' = SUM ( fact_quarterly[net_income_q] )
+		formatString: #,##0
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: 723fc17b-6586-52a1-a068-ace5720ef9ce
+
+	measure 'EBITDA Margin Q' = DIVIDE ( [EBITDA Q], [Revenue Q] )
+		formatString: 0.0%
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: 4009a3f3-c88d-58c1-b761-3590dd599b34
+
+	measure 'Revenue QoQ (nominal)' =
+			VAR _idx = [Selected Index]
+			VAR _cur = [Revenue Q]
+			VAR _prev =
+			    CALCULATE ( [Revenue Q], FILTER ( ALL ( dim_date ), dim_date[period_index] = _idx - 1 ) )
+			RETURN
+			    IF ( ISBLANK ( _prev ) || ISBLANK ( _cur ), BLANK (), DIVIDE ( _cur, _prev ) - 1 )
+		formatString: 0.0%
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: 66b19295-ccb2-5a9a-a49a-0ace04493eab
+
+	measure 'Revenue TTM (nominal)' =
+			VAR _idx = [Selected Index]
+			RETURN
+			    CALCULATE (
+			        SUM ( fact_quarterly[revenue_q] ),
+			        FILTER ( ALL ( dim_date ), dim_date[period_index] > _idx - 4 && dim_date[period_index] <= _idx )
+			    )
+		formatString: #,##0
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: 2ed0bb52-72ab-57b2-b955-2de30b33eeb5
+
+	measure 'EBITDA TTM (nominal)' =
+			VAR _idx = [Selected Index]
+			RETURN
+			    CALCULATE (
+			        SUM ( fact_quarterly[ebitda_q] ),
+			        FILTER ( ALL ( dim_date ), dim_date[period_index] > _idx - 4 && dim_date[period_index] <= _idx )
+			    )
+		formatString: #,##0
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: dc9f2033-630a-548f-9bda-8177059c0ad7
+
+	measure 'Quarter Basis OK' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    IF ( CALCULATE ( MIN ( fact_quarterly[qoq_basis_ok] ), dim_date[date_key] = _d ) = 1, 1, 0 )
+		formatString: 0
+		displayFolder: 8 Çeyreklik (nominal)
+		lineageTag: d7bf1095-5982-5bbd-ba14-435bcd7cd943
+
+	measure 'Revenue YTD PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( SUM ( fact_ratios[revenue] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: #,##0
+		displayFolder: 9 Büyüme (nominal)
+		lineageTag: 050d6700-c91f-509c-9a34-9b93d7990048
+
+	measure 'Revenue Growth YoY (nominal)' =
+			VAR _cy = [Revenue YTD]
+			VAR _py = [Revenue YTD PY]
+			RETURN
+			    IF ( ISBLANK ( _py ) || ISBLANK ( _cy ), BLANK (), DIVIDE ( _cy, _py ) - 1 )
+		formatString: 0.0%
+		displayFolder: 9 Büyüme (nominal)
+		lineageTag: 813ec411-f694-51ed-a128-8b51ac5265ac
+
+	measure 'Growth Comparability' =
+			VAR _d = [Selected Date Key]
+			VAR _break =
+			    CALCULATE ( COUNTROWS ( fact_growth ), fact_growth[comparability] = "BASE_BREAK", dim_date[date_key] = _d )
+			RETURN
+			    IF ( _break > 0, "BASE_BREAK", IF ( _d >= 202312, "NOMINAL_TMS29", "NOMINAL" ) )
+		displayFolder: 9 Büyüme (nominal)
+		lineageTag: 1e55be93-4822-5dfc-8b17-adb9d687c4b9
+
+	measure 'Growth Font Color' = IF ( [Growth Comparability] = "BASE_BREAK", "#B3B3B3", "#252423" )
+		displayFolder: 9 Büyüme (nominal)
+		lineageTag: d2575a66-09ac-58f3-b64f-368418e58d21
+
+	measure 'TMS29 Banner' =
+			IF (
+			    [Selected Date Key] >= 202312,
+			    "TMS 29 dönemi: dönemler arası büyüme ve çeyreklik farklar nominal",
+			    "TMS 29 öncesi dönem: değerler nominal TL"
+			)
+		displayFolder: A Uyarılar
+		lineageTag: b4c9518e-d2a6-5995-b918-9bf087537f8f
+
+	measure 'Known Issue Count' =
+			VAR _p = [Selected Period]
+			RETURN
+			    CALCULATE (
+			        COUNTROWS ( known_issues ),
+			        TREATAS ( VALUES ( dim_company[ticker] ), known_issues[ticker] ),
+			        known_issues[period_label] = _p
+			    )
+		formatString: 0
+		displayFolder: A Uyarılar
+		lineageTag: 22e50f72-08fd-597d-bde4-0c2160db2baa
+
+	measure 'Data Issue Banner' =
+			IF (
+			    [Known Issue Count] > 0,
+			    "UYARI: Seçili şirket/dönem için kaynak veride bilinen bir sorun var (known_issues).",
+			    "Seçili şirket/dönem için kayıtlı kaynak veri sorunu yok."
+			)
+		displayFolder: A Uyarılar
+		lineageTag: 1fed1cab-46ff-577b-9c12-327503c5f05e
+
+	measure 'Growth Banner' =
+			SWITCH (
+			    [Growth Comparability],
+			    "BASE_BREAK", "Büyüme karşılaştırması güvenilir değil (kaynakta baz kırılması); gri gösterilir.",
+			    "NOMINAL_TMS29", "Büyüme nominal TL'dir; reel büyüme değildir.",
+			    "Büyüme nominal TL'dir."
+			)
+		displayFolder: A Uyarılar
+		lineageTag: 654daee0-9f0a-5596-9542-170e969fa74d
+
+	measure 'Blank Ratio Note' = "Boş oran = anlamsız: FAVÖK marjı %1'in altında ya da özkaynak sıfır/negatif"
+		displayFolder: A Uyarılar
+		lineageTag: 1a2af1cb-0f30-5b0d-9f36-7c7947336abe
+
+	measure Footnotes = "Kaynak: İş Yatırım (isyatirimhisse, resmî olmayan kaynak); kritik rakamlar KAP ile doğrulanmalı. " & "TMS 29 (2023/12 ve sonrası): kolonlar arası büyüme ve çeyreklik farklar nominaldir; marj, likidite ve kaldıraç aynı dönem kolonu içinde hesaplandığı için etkilenmez. " & "2022/12, 2025/9 ve 2025/12 kolonlarında kaynak veride baz kırılması var (dw.known_data_issues)."
+		displayFolder: A Uyarılar
+		lineageTag: 04bcd9e3-9fad-520d-9a70-f46ba9fbe957
+
+	measure 'DQ Total Checks' = COUNTROWS ( dq_results )
+		formatString: 0
+		displayFolder: B Veri kalitesi
+		lineageTag: 6e732786-3b33-50cf-bbbf-31369108447d
+
+	measure 'DQ Pass' =
+			VAR _n = CALCULATE ( COUNTROWS ( dq_results ), dq_results[result] = "PASS" )
+			RETURN
+			    IF ( ISBLANK ( _n ), 0, _n )
+		formatString: 0
+		displayFolder: B Veri kalitesi
+		lineageTag: afadae9d-b77d-5f39-ab58-58f09fa41a9f
+
+	measure 'DQ Explained' =
+			VAR _n = CALCULATE ( COUNTROWS ( dq_results ), dq_results[result] = "EXPLAINED" )
+			RETURN
+			    IF ( ISBLANK ( _n ), 0, _n )
+		formatString: 0
+		displayFolder: B Veri kalitesi
+		lineageTag: 650ac438-af7a-595f-af78-5a1f0b0c8458
+
+	measure 'DQ Fail' =
+			VAR _n = CALCULATE ( COUNTROWS ( dq_results ), dq_results[result] = "FAIL" )
+			RETURN
+			    IF ( ISBLANK ( _n ), 0, _n )
+		formatString: 0
+		displayFolder: B Veri kalitesi
+		lineageTag: 7dde4ee4-8b06-5e7a-8d6e-5cba3da02780
+
+	measure 'DQ Pass or Explained %' = DIVIDE ( [DQ Pass] + [DQ Explained], [DQ Total Checks] )
+		formatString: 0.0%
+		displayFolder: B Veri kalitesi
+		lineageTag: aa8dd1c9-11ca-5a29-81b3-3039cd6dd91d
+
+	measure 'Gross Margin PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[gross_margin] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.0%
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: 757ba1d1-8cf0-5f11-b6a7-bd407b36dfbe
+
+	measure 'EBITDA Margin PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[ebitda_margin] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.0%
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: a9ee407d-c334-51a2-957a-80ebbbeaae60
+
+	measure 'Net Margin PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[net_margin] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.0%
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: b7dd7e89-6760-5186-8f6c-bfc6ee176a4c
+
+	measure 'ROE (annualized) PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[roe_annualized] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.0%
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: 2e3bc84f-0636-5bd0-8330-3c66cbe014ae
+
+	measure 'Net Debt to EBITDA PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[net_debt_to_ebitda] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.00"x"
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: 63237914-ecef-51d2-a1a4-d844d169cac8
+
+	measure 'Current Ratio PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[current_ratio] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.00
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: d4c5a9e5-c81e-5c2d-abe4-b18d8c768095
+
+	measure 'Quick Ratio PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[quick_ratio] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.00
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: 26b37199-6d2b-5663-b0a0-b4805080e02a
+
+	measure 'Cash Ratio PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[cash_ratio] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.00
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: 09e1abbc-f95b-5e10-b166-9e2760508748
+
+	measure 'OCF to EBITDA PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[ocf_to_ebitda] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: 0da1bba8-67da-5bde-9a13-d8effca9dc05
+
+		formatStringDefinition = "0.00x"
+
+	measure 'Cash Conversion Cycle (days) PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[cash_conversion_cycle] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.0
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: be8d86cb-e23a-5224-aa87-bc8db2afedd6
+
+	measure 'Liabilities to Assets PY' =
+			VAR _d = [Selected Date Key]
+			RETURN
+			    CALCULATE ( AVERAGE ( fact_ratios[liabilities_to_assets] ), ALL ( dim_date ), dim_date[date_key] = _d - 100 )
+		formatString: 0.0%
+		displayFolder: C Önceki yıl (KPI hedefi)
+		lineageTag: 32f9a24e-f30c-51dc-aecf-f2f4c72c1940
+
+	measure 'DQ Summary' = [DQ Total Checks] & " test · " & [DQ Pass] & " PASS · " & [DQ Explained] & " açıklanmış · " & [DQ Fail] & " FAIL"
+		displayFolder: B Veri kalitesi
+		lineageTag: c03542a3-e5ed-530b-8548-98a51a9fee94
+
+	column Dummy
+		dataType: string
+		isHidden
+		lineageTag: b2afc4b9-27fb-5a1d-9867-87cc3461d517
+		summarizeBy: none
+		sourceColumn: Dummy
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Dummy = text], {})
+				in
+				    Source
+
