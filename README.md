@@ -2,6 +2,9 @@
 
 End-to-end financial data project on four Borsa Istanbul retailers: **BİM (BIMAS), Migros (MGROS), Şok (SOKM) and CarrefourSA (CRFSA)**, seven years of quarterly statements (2019/3 to 2025/12, 28 periods).
 
+### Canlı pano
+[📊 BIST Perakende Finansal Analiz sayfasını aç](https://emre-cakir0.github.io/bist-retail-finance/RetailFinance_Dashboard.html)
+
 Raw statements are pulled with Python, loaded into SQL Server, standardised into a star schema, turned into ratio views and stored procedures, validated by an automated data-quality suite (381 checks, 0 unexplained failures) and presented in a three-page Power BI report.
 
 ![Executive summary](docs/img/dashboard_overview.png)
